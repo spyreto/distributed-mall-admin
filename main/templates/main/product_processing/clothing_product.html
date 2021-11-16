@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container-fluid">
+  <div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-clipboard-check"></i>
+    Product modification</div>
+  <div class="card-body">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <div class="form-row">
+          <legend class="col-md-12 col-form-label pt-0"><strong>Product details</strong></legend>
+          <div class="col-md-6">
+            <div class="form-label-group">
+              <input type="text" id="productname" class="form-control" name="name" value= '{{ product.name }}'>
+              <label for="productname">Product name</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productcategory" class="form-control"  disabled="disabled"
+                value="{{ product.category.name }}" >
+              <label for="productcategory">Product category</label>
+            </div>
+          </div>
+        </div>
+        {% if product_form.non_field_errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>{{ product_form.non_field_errors }}</strong>
+          </div>
+        {% endif %}
+        {% if product_form.name.errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>{{ product_form.name.errors }}</strong>
+          </div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-6">
+            <div class="form-label-group">
+              <input type="text" id="manufacturerName" class="form-control"
+                name="manufacturer-name" value="{{ product.manufacturer.name }}" >
+              <label for="manufacturerName">Manufacturer</label>
+            </div>
+          </div>
+        </div>
+        {% if manufacturer_form.non_field_errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>{{ manufacturer_form.non_field_errors }}</strong>
+          </div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-12">
+            <label for="companyDescription">Product description</label>
+            <textarea class="form-control" id="companyDescription" rows="4"
+              placeholder="A brief description of the product ....."
+              name="description" value ='{{ product.description }}'>{{ product.description }}</textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-8">
+            <label for="tags">Tags</label>
+            <div class="form-label-group">
+              <input type="text" id="tags" data-role="tagsinput" class="form-control" name="tags"
+                value="{% for tag in product.tags.all %}, {{ tag }} {% endfor %}">
+              <small id="tags" class="form-text text-muted">Enter keywords that describe the product.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          {% include "includes/fields/color_field.html" with field=product_form.color.field product=product.clothingproduct label="Color" %}
+          {% include "includes/fields/material_field.html" with field=product_form.material.field product=product.clothingproduct label="Material" %}
+        </div>
+      </div>
+      {{ image_formset.management_form }}
+      <div class="form-group">
+        {% for form in image_formset %}
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-8">
+              <input type="file" class="custom-file-input product-process-img-input {% if form.id.value %}change-img{% else %}add-img{% endif %}" id="id_form-{{ forloop.counter0 }}-image"
+              accept="image/*" name="form-{{ forloop.counter0 }}-image"
+                {% if form.image.value %} value='{{ form.image.value  }}' {% endif %}>
+              <label class="custom-file-label" for="id_form-{{ forloop.counter0 }}-image">Select image...</label>
+              <input type="hidden" name="form-{{ forloop.counter0 }}-id" id="id_form-{{ forloop.counter0 }}-id"
+                {% if form.id.value %} value='{{ form.id.value  }}' {% endif %}>
+            </div>
+            <div class="col-md-4">
+              <div class="form-row justify-content-around">
+              {% for image in product.image.all %}
+                {% if forloop.counter == forloop.parentloop.counter %}
+                  <img src="{{ image.thumbnail.url }}" style = 'padding:10px'}">
+                {% endif %}
+              {% endfor %}
+              </div>
+              {% if form.image.value %}
+              <div class="row justify-content-center">
+                <button id ="id_form-{{ forloop.counter0 }}" type="button"
+                  class="btn btn-outline-danger product-process-img-rmv-btn">Remove
+                </button>
+                <input  style="display:none" type="checkbox" name="form-{{ forloop.counter0 }}-DELETE" id="id_form-{{ forloop.counter0 }}-DELETE">
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% if image_formset.non_form_errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong><ul><li>Please submit at least 1 product image!</li></ul></strong>
+          </div>
+        {% endif %}
+      </div>
+      <hr class="mb-12">
+      <div class="row justify-content-center">
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </form>
+  </div>
+  </div>
+</div>
+{% endblock body %}

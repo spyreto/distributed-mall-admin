@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container-fluid">
+      <div class="card card-login mx-auto mt-5">
+        <div class="card-header">
+          <i class="fas fa-filter"></i>
+          Category selection</div>
+        <div class="card-body">
+          {{ category_name }}
+          <form method="POST">            
+            {% csrf_token %}
+               {% include "includes/fields/category_field.html" with field=form.category %}
+               {% if form.non_field_errors %}
+                 <div class="form-group">
+                   <div class="form-row">
+                     {% if form.non_field_errors %}
+                       <div class="alert alert-warning">
+                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                         <strong>{{ form.non_field_errors }}</strong>
+                       </div>
+                     {% endif %}
+                   </div>
+                 </div>
+               {% endif %}
+            <button type="submit" class="btn btn-primary btn-block">Product search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+{% endblock body %}

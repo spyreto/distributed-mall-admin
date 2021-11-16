@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="card mb-3">
+  <div class="card-header">
+  <i class="fas fa-chart-line"></i>
+    Statistics</div>
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <div class="form-row justify-content-end">
+          {% include "includes/fields/year_field.html" with field=form.year %}
+          {% include "includes/fields/month_field.html" with field=form.month %}
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row justify-content-end">
+          <button type="submit" class="btn btn-secondary">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card mb-3">
+  <div class="card-header" id = 'month'>
+    <i class="fas fa-chart-area"></i>
+    Revenue </div>
+  <div class="card-body">
+    <canvas id="daysIncomeAreaChart" width="100%" height="30"></canvas>
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+    <script type="text/javascript">
+
+
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May",
+       "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    document.getElementById('month').innerHTML += ' ' + monthNames[{{month}} -1] + ' ' + {{year}};
+
+    let daysInMonth =  new Date({{year}}, {{month}}, 0).getDate();
+
+    var daysIncomeIndexes = new Array(daysInMonth);
+    var daysIncomeValues = new Array(daysInMonth).fill(0);
+    let daysIncomeValueLength = {{  daysIncomeValues|safe }}.length
+
+    for (let i = 1; i <= daysInMonth; i++ )
+      daysIncomeIndexes[i -1 ] = i + " " + monthNames[{{month}} -1]
+
+    for (let i = 0; i < daysIncomeValueLength; i++ )
+      daysIncomeValues[{{ daysIncomeIndexes|safe }}[i] -1] = {{  daysIncomeValues|safe }}[i];
+
+    var monthsIncomeValues = new Array(daysInMonth).fill(0);
+    let monthsIncomeIndexesLength = {{  monthsIncomeIndexes|safe }}.length
+    var monthsIncomeIndexes = new Array(monthsIncomeIndexesLength);
+
+    for (let i = 0; i < 12; i++ )
+      monthsIncomeIndexes[i] = monthNames[i];
+
+    for (let i = 0; i < monthsIncomeIndexesLength; i++ )
+      monthsIncomeValues[{{ monthsIncomeIndexes|safe }}[i] -1] = {{  monthsIncomeValues|safe }}[i];
+
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    // Area Chart Example
+    var ctx = document.getElementById("daysIncomeAreaChart");
+    var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: daysIncomeIndexes,
+        datasets: [{
+          label: "Revenue",
+          lineTension: 0.3,
+          backgroundColor: "rgba(2,117,216,0.2)",
+          borderColor: "rgba(2,117,216,1)",
+          pointRadius: 5,
+          pointBackgroundColor: "rgba(2,117,216,1)",
+          pointBorderColor: "rgba(255,255,255,0.8)",
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(2,117,216,1)",
+          pointHitRadius: 50,
+          pointBorderWidth: 2,
+          data: daysIncomeValues,
+        }],
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'day'
+            },
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              maxTicksLimit: 10
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              min: 0,
+              maxTicksLimit: 5
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, .125)",
+            }
+          }],
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+    </script>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-chart-bar"></i>
+        Revenue for {{year}}</div>
+      <div class="card-body">
+        <canvas id="monthsIncomeBarChart" width="100%" height="50"></canvas>
+        <script type="text/javascript">
+          // Set new default font family and font color to mimic Bootstrap's default styling
+          Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+          Chart.defaults.global.defaultFontColor = '#292b2c';
+
+          // Bar Chart Example
+          var ctx = document.getElementById("monthsIncomeBarChart");
+          var myLineChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: monthsIncomeIndexes,
+              datasets: [{
+                label: "Revenue",
+                backgroundColor: "rgba(2,117,216,1)",
+                borderColor: "rgba(2,117,216,1)",
+                data: monthsIncomeValues,
+              }],
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  time: {
+                    unit: 'month'
+                  },
+                  gridLines: {
+                    display: false
+                  },
+                  ticks: {
+                    maxTicksLimit: 12
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    min: 0,
+                    maxTicksLimit: 10
+                  },
+                  gridLines: {
+                    display: true
+                  }
+                }],
+              },
+              legend: {
+                display: false
+              }
+            }
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-chart-pie"></i>
+          Method of payment for the year {{year}}</div>
+      <div class="card-body">
+        <canvas id="paidWithPieChart" width="100%" height="100"></canvas>
+        <script type="text/javascript">
+          // Set new default font family and font color to mimic Bootstrap's default styling
+          Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+          Chart.defaults.global.defaultFontColor = '#292b2c';
+
+          // Pie Chart Example
+          var ctx = document.getElementById("paidWithPieChart");
+          var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: ["Money " + {{ paidWithMoney }} + "\u20AC",
+                "Points " + {{ paidWithPoints }}*20 + "(" + {{ paidWithPoints }} + "\u20AC)"],
+              datasets: [{
+                data: [{{ paidWithMoney }}, {{ paidWithPoints }}],
+                backgroundColor: ['#007bff', '#ffa500'],
+              }],
+            },
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-chart-bar"></i>
+    First in sales products of the year {{year}}</div>
+  <div class="card-body">
+    <canvas id="mostBoughtProductsBarChart" width="100%" height="50"></canvas>
+    <script type="text/javascript">
+      // Set new default font family and font color to mimic Bootstrap's default styling
+      Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+      Chart.defaults.global.defaultFontColor = '#292b2c';
+
+      var maxBoughtProductsQuantities =  Math.max(...{{mostBoughtProductsQuantities|safe }}) + 10;
+
+      // Bar Chart Example
+      var ctx = document.getElementById("mostBoughtProductsBarChart");
+      var myLineChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: {{ mostBoughtProductsNames|safe }},
+          datasets: [{
+            label: "Revenue",
+            backgroundColor: ['#F08080' , '#90EE90','#B0C4DE', '#FFA500','#ADD8E6',],
+            borderColor: "rgba(2,117,216,1)",
+            data: {{mostBoughtProductsQuantities|safe }},
+          }],
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              time: {
+                unit: 'month'
+              },
+              gridLines: {
+                display: false
+              },
+              ticks: {
+                maxTicksLimit: 5
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                stepSize: 1,
+                min: 0,
+                maxTicksLimit: 10
+              },
+              gridLines: {
+                display: true
+              }
+            }],
+          },
+          legend: {
+            display: false
+          }
+        }
+      });
+    </script>
+  </div>
+{% endblock body %}

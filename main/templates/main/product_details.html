@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fa fa-asterisk"></i>
+    Product details
+  </div>
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %}
+      {% include "includes/product_image_carousel.html" %}
+      <br>
+      <div class="form-group">
+        <div class="form-row justify-content-between">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productid" class="form-control"  disabled="disabled" value="{{ product.id }}" >
+              <label for="productid">Product ID</label>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-label-group">
+              <input type="text" id="productname" class="form-control"  disabled="disabled" value="{{ product.name }}" >
+              <label for="productname">Product name</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productmanufacturer" class="form-control"  disabled="disabled" value="{{ product.manufacturer }}" >
+              <label for="productmanufacturer">Manufacturer</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if  product.category.type == 10 %}
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productcategory" class="form-control"  disabled="disabled" value="{{ product.category }}" >
+              <label for="productcategory">Product category</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productmaterial" class="form-control"
+                disabled="disabled" value="{{ product.clothingproduct.get_material_display  }}" >
+              <label for="productmaterial">Material</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcolor" class="form-control"
+                disabled="disabled" value="{{ product.clothingproduct.get_color_display }}" >
+              <label for="productcolor">Color</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% elif product.category.type == 20 %}
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productcategory" class="form-control"  disabled="disabled" value="{{ product.category }}" >
+              <label for="productcategory">Product category</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productmaterial" class="form-control"
+                disabled="disabled" value="{{ product.footwearproduct.get_material_display  }}" >
+              <label for="productmaterial">Material</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcolor" class="form-control"
+                disabled="disabled" value="{{ product.footwearproduct.get_color_display }}" >
+              <label for="productcolor">Color</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% elif product.category.type == 30 %}
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productcategory" class="form-control"
+                disabled="disabled" value="{{ product.category }}" >
+              <label for="productcategory">Product category</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="producttype" class="form-control"
+                disabled="disabled" value="{{ product.bag.get_type_display  }}" >
+              <label for="producttype">Type</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productmaterial" class="form-control"
+                disabled="disabled" value="{{ product.bag.get_material_display  }}" >
+              <label for="productmaterial">Material</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcolor" class="form-control"
+                disabled="disabled" value="{{ product.bag.get_color_display }}" >
+              <label for="productcolor">Color</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% elif product.category.type == 35 %}
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="producttype" class="form-control"  disabled="disabled" value="{{ product.wallet.get_type_display  }}" >
+              <label for="producttype">Type</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productmaterial" class="form-control"  disabled="disabled" value="{{ product.wallet.get_material_display  }}" >
+              <label for="productmaterial">Material</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcolor" class="form-control"  disabled="disabled" value="{{ product.wallet.get_color_display }}" >
+              <label for="productcolor">Color</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="typeofclosing" class="form-control"  disabled="disabled"
+                value="{{ product.wallet.get_type_of_closing_display }}" >
+              <label for="typeofclosing">Closing type</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% elif product.category.type == 40 %}
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productcategory" class="form-control"
+                disabled="disabled" value="{{ product.category }}" >
+              <label for="productcategory">Product category</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="producttype" class="form-control"  disabled="disabled"
+                value="{{ product.watch.get_display_display  }}" >
+              <label for="producttype">Mode</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productmaterial" class="form-control"  disabled="disabled"
+                value="{{ product.watch.get_mechanism_display  }}" >
+              <label for="productmaterial">Mechanism</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcolor" class="form-control"  disabled="disabled"
+                value="{{ product.watch.get_water_resistance_display }}" >
+              <label for="productcolor">Water resistant</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="producttype" class="form-control"  disabled="disabled"
+                value="{{ product.watch.get_band_material_display  }}" >
+              <label for="producttype">Strap material</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productmaterial" class="form-control"  disabled="disabled"
+                value="{{ product.watch.get_band_color_display  }}" >
+              <label for="productmaterial">Strap color</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcolor" class="form-control"  disabled="disabled"
+                value="{{ product.watch.get_face_color_display }}" >
+              <label for="productcolor">Dial color</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-12">
+            <label for="companyDescription">Product description</label>
+            <textarea class="form-control" id="companyDescription" disabled="disabled"
+              rows="5" name="description">{{  product.description }}</textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+       <div class="form-row">
+         <div class="col-md-12">
+           <p>Tags:
+             {% for tag in product.tags.all %}
+               <span class="badge badge-pill badge-secondary">#{{ tag }}</span>
+             {% endfor %}
+           </p>
+         </div>
+       </div>
+     </div>  
+    </form>
+  </div>
+</div>
+{% endblock body %}
+{% block js %}
+  {% if offer_form %}
+    {{ offer_form.media }}
+  {% endif %}
+{% endblock js %}

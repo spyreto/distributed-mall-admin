@@ -1,0 +1,12 @@
+./manage.py import_companies_categories samples/companies-categories.csv
+./manage.py import_products_categories samples/products-categories.csv
+./manage.py import_clothing_products samples/clothing-products.csv samples/cothing-products-images/
+./manage.py import_footwear_products samples/footwear-products.csv samples/footwear-products-images/
+./manage.py import_bags samples/bags.csv samples/bags-images/
+./manage.py import_wallets samples/wallets.csv samples/wallets-images/
+./manage.py import_watches samples/watches.csv samples/watches-images/
+./manage.py import_customers samples/customers.csv
+
+./manage.py update_offers
+./manage.py remove_inactive_manufacturers -l
+./manage.py create_autocompletebox_seeds -l

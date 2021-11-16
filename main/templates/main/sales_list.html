@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block body %}
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-fw fa-euro-sign"></i>
+      Sales</div>
+    <div class="card-body">
+      <form method="get">
+          {% csrf_token %}
+        <div class="form-group">
+          <div class="form-row justify-content-between">
+            <legend class="col-md-12 col-form-label pt-0"><strong>Search sale</strong></legend>
+            <div class="col-md-2">
+              <div class="form-label-group">
+                <input type="text" id="productId" class="form-control form-control-sm" name="id" autofocus="autofocus" ">
+                <label for="productId">ID</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-label-group">
+                <input type="text" id="productName" class="form-control form-control-sm" name="product__name__icontains" autofocus="autofocus" ">
+                <label for="productName">Product name</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-label-group">
+                <select id="status" class="form-control" name="status">
+                  <option selected> --Status</option>
+                  <option value="10">In process</option>
+                  <option value="20">Confirmed</option>
+                  <option value="30">Canceled</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-label-group">
+                <input type="text" id="customerEmail" class="form-control form-control-sm" name="customer__user__email__icontains" autofocus="autofocus" ">
+                <label for="customerEmail">Customer</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <select name = 'paid_with_money' class="form-control">
+                <option>--Payment method</option>
+                <option  value="true">Money</option>
+                <option  value="false">Points</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-5">
+                  <label for="id_date_added__gte">Sales from</label>
+                  {{ filter.form.date_added__gte }}
+                </div>
+                <div class="col-md-5">
+                  <label for="id_date_added__lte">Sales to</label>
+                  {{ filter.form.date_added__lte }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row justify-content-start">
+            <button type="submit" class="btn btn-secondary">Search</button>
+          </div>
+        </div>
+        <br>
+      </form>
+      <div class="table-responsive">
+        <table class="table table-bordered" id="salesTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Product name</th>
+              <th>Category</th>
+              <th>Customer</th>
+              <th>Payment method</th>
+              <th>Status</th>
+              <th>Date of sale</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>ID</th>
+              <th>Product name</th>
+              <th>Category</th>
+              <th>Customer</th>
+              <th>Payment method</th>
+              <th>Status</th>
+              <th>Date of sale</th>
+              <th></th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for sale in filter.qs %}
+            <tr class='clickable-row' data-href="{% url "sale_details" 'sales' sale.id %}">
+              <td>{{ sale.id }}</td>
+              <td>{{ sale.product.name }}</td>
+              <td>{{ sale.product.category}}</td>
+              <td>{{ sale.customer.user.email }}</td>
+              <td>{% if sale.paid_with_money %} Money
+                {% else %} Points {% endif %}</td>
+              <td class = {% if sale.status == 10 %}"table-info"
+              {% elif sale.status == 20 %} "table-success"
+              {% else %} "table-danger" {% endif %}>{{ sale.get_status_display}}</td>
+              <td>{{ sale.date_added }}</td>
+              <td><img src="{% if sale.product.structure == 'standalone' %} {{ sale.product.image.first.thumbnail.url }}
+                  {% else %}
+                    {{ sale.product.parent.image.first.thumbnail.url }}
+                  {% endif %}"
+                alt="{{ sale.product.name }}" width="35" height="35">
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock body %}
+
+
+{% block js %}
+  {% if filter.form %}
+    {{ filter.form.media }}
+  {% endif %}
+{% endblock js %}

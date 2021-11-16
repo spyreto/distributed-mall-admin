@@ -1,0 +1,17 @@
+{% load widget_tweaks %}
+
+<div class="col-md-3">
+  {% if label %}
+    <label>{{label}}</label>
+  {% endif %}
+  <select name = 'display' class="custom-select my-1 mr-sm-3" id="color-selection">
+    {% if product %}
+      <option value="{{ product.display}}">{{ product.get_display_display }}</option>
+    {% else %}
+      <option value="">--Mode</option>
+    {% endif %}
+  {% for x, y in field.choices %}
+    <option value="{{ x }}">{{ y }}</option>
+  {% endfor %}
+  </select>
+</div>

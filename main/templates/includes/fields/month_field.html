@@ -1,0 +1,6 @@
+{% load widget_tweaks %}
+
+<div class="col-md-3">
+  <label for="{{ field.id_for_label }}">Month</label>
+  {{ field|add_class:"form-control" |add_error_class:"is-invalid"|append_attr:"searchable:Search here.."}}
+</div>

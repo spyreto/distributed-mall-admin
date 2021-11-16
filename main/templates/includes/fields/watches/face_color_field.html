@@ -1,0 +1,17 @@
+{% load widget_tweaks %}
+
+<div class="col-md-3">
+  {% if label %}
+    <label>{{label}}</label>
+  {% endif %}
+  <select name = 'face_color' class="custom-select my-1 mr-sm-3 color-selection">
+    {% if product %}
+      <option  style = "background-color: black" value="{{ product.face_color}}">{{ product.get_face_color_display }}</option>
+    {% else %}
+      <option style = "background-color: white" value="">--Dial color</option>
+    {% endif %}
+  {% for x, y in field.choices %}
+    <option style = "background-color: {{ x }}" value="{{ x }}">{{ y }}</option>
+  {% endfor %}
+  </select>
+</div>

@@ -1,0 +1,8 @@
+# dependencies
+**/node_modules/
+
+# venv — virtual environment
+/venv
+
+#Environment variables
+.env

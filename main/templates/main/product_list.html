@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block body %}
+        {{ object_list.porduct.category }}
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-clipboard-list"></i>
+    Stock management</div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="salesProductTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Manufacturer</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Manufacturer</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th></th>
+          </tr>
+        </tfoot>
+        <tbody>
+          {% for sales in object_list %}
+          <tr class='clickable-row' data-href="{% url "product_manage" sales.product.id sales.product.category.type %}">
+            <td>{{ sales.product.id }}</td>
+            <td>{{ sales.product.name }}</td>
+            <td>{{ sales.product.manufacturer }}</td>
+            <td>{{ sales.product.category }}</td>
+            <td>{{ sales.price  }}</td>
+            <td>{{ sales.quantity  }}</td>
+            <td><img src="{{ sales.product.image.first.thumbnail.url }}"
+              alt="{{ sales.product.name }}" width="35" height="35"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock body %}

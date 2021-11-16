@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container-fluid">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-info"></i>
+      Offer details
+    </div>
+    <div class="card-body">
+      <div class="form-row justify-content-center">
+        <div class="col-md-12">
+          <div id="carouselProductImage" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              {% for image in object.product.image.all %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img class="centerImg" src="{{ image.image.url }}" alt="{{ product.name }}" >
+              </div>
+              {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselProductImage" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselProductImage" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+        <br>
+        <div class="form-group">
+          <div class="row justify-content-between">
+            <div class="col-md-3">
+              <div class="form-label-group">
+                <input type="number" id="productid" class="form-control"  disabled="disabled" value="{{ object.product.id }}" >
+                <label for="productid">Product ID</label>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="form-label-group">
+                <input type="text" id="productname" class="form-control"  disabled="disabled" value="{{ object.product.name }}" >
+                <label for="productname">Product name</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-label-group">
+                <input type="text" id="productmanufacturer" class="form-control"  disabled="disabled" value="{{ object.product.manufacturer }}" >
+                <label for="productmanufacturer">Manufacturer</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-label-group">
+                <input type="text" id="productcategory" class="form-control"  disabled="disabled" value="{{ object.product.category }}" >
+                <label for="productcategory">Product category</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-label-group ">
+                <input type="number" disabled="disabled" pattern="\d+([\.,]\d+?" id="price" class="form-control"
+                name="price" autofocus="autofocus" value="{{ object.offer.price }}"/>
+                <label for="price">Initial price</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% if object.offer.product.category.type == 10 %}
+          {% include "includes/offer_details/chothing_product.html" %}
+        {% elif object.offer.product.category.type == 20 %}
+          {% include "includes/offer_details/footwear_product.html" %}
+        {% elif object.offer.product.category.type == 30 %}
+          {% include "includes/offer_details/bag.html" %}
+        {% elif object.offer.product.category.type == 35 %}
+          {% include "includes/offer_details/wallet.html" %}
+        {% elif object.offer.product.category.type == 40 %}
+          {% include "includes/offer_details/watch.html" %}
+        {% endif %}
+        <hr class="mb-4">
+        <div class="form-group">
+          <div class="row justify-content-between">
+            <legend class="col-md-12 col-form-label pt-0"><strong>Offer details</strong></legend>
+            <div class="col-md-3">
+              <div class="form-label-group">
+                <input type="text" id="offerid" class="form-control"  disabled="disabled" value="{{ object.id }}" >
+                <label for="offerid">Offer ID</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-label-group">
+                <input type="text" id="discount_price" class="form-control"  disabled="disabled" value="{{ object.discount_price }}" >
+                <label for="discount_price">Discount price</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-label-group">
+                <input type="number" id="discount_rate" class="form-control"  disabled="disabled" value="{{ object.discount_rate }}" >
+                <label for="discount_rate">Discount Rate</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-label-group">
+                <input type="text" id="number_of_customers" class="form-control"  disabled="disabled" value="{{ object.number_of_customers }}" >
+                <label for="number_of_customers">Total receipt of the offer</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-label-group">
+                <input type="text" id="start_date" class="form-control"  disabled="disabled"
+                  value="{{ object.start_date|date }}" >
+                <label for="start_date">Start of Offer</label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-label-group">
+                <input type="text" id="start_date" class="form-control"  disabled="disabled"
+                  value="{{ object.end_date|date }}" >
+                <label for="start_date">Offer expires</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="mb-4">
+        <div class="row justify-content-center">
+          {% if object.is_open and object.offer %}
+          <div class="col-md-3 text-center">
+            <a href="{% url "product_manage" object.product.id object.product.category.type  %}#product_discount" class="btn btn-primary">Processing</a>
+          </div>
+          {% endif %}
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container-fluid">
+      <div class= "card mb-3">
+        <div class="card-header">
+          <i class="far fa-id-card"></i>
+          Account Management</div>
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-12">
+                  {% if company_form.non_field_errors %}
+                    <div class="alert alert-warning">
+                      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                      <strong>{{ company_form.non_field_errors }}</strong>
+                    </div>
+                  {% endif %}
+                  {% if seller_form.non_field_errors %}
+                    <div class="alert alert-warning">
+                      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                      <strong>{{ seller_form.non_field_errors }}</strong>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <legend class="col-md-12 col-form-label pt-0"><strong>Personal information</strong></legend>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="text" id="firstName" class="form-control" name="first_name" placeholder="First name"
+                            autofocus="autofocus"  required="required" value="{{ seller_form.first_name.value }}" >
+                    <label for="firstName">First name</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="text" id="lastName" class="form-control" placeholder="Last name"
+                            name="last_name" autofocus="autofocus" required="required" value="{{ seller_form.last_name.value }}">
+                    <label for="lastName">Last name</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-8">
+                  <div class="form-label-group">
+                    <input type="email" id="inputEmail" name="email"
+                          class="form-control {% if form.email.errors %}is-­invalid{% endif %}"
+                          placeholder="Email:" required="required"  value="{{ seller_form.email.value }}" >
+                    <label for="inputEmail">Email</label>
+                    {% if seller_form.email.errors %}
+                      <div class="alert alert-warning">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <strong>{{ seller_form.email.errors }}</strong>
+                      </div>
+                    {% endif %}
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row justify-content-between">
+                <legend class="col-md-12 col-form-label pt-0"><strong>Business info</strong></legend>
+                <div class="col-md-8">
+                  <div class="form-label-group">
+                    <input type="text" id="companyName" class="form-control" name="name" placeholder="Company name"
+                            autofocus="autofocus" value="{% if company_form.name.value %}{{ company_form.name.value }} {% endif %}">
+                    <label for="companyName">Company name</label>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="form-row justify-content-between">
+                <div class="col-md-8">
+                   {% include "includes/fields/category_field.html" with field=company_form.category %}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-8">
+                  <label for="companyDescription">Company description</label>
+                  <textarea class="form-control" id="companyDescription" rows="5" placeholder="A few words about your business ....."
+                  name="description">{% if company_form.description.value %}{{ company_form.description.value }} {% endif %}</textarea>
+                  <br>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="text" id="address" name ="address" class="form-control"  value="{{ company_location_form.address.value|default:"Thessaloniki, Greece" }}"/>
+                    <label for="address">Store address</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="text" id="geolocation" name ="geolocation" class="form-control" value="{{ company_location_form.geolocation.value|default:"40.6400629,22.9444191000000059" }}"/>
+                    <label for="geolocation">Store location</label>
+                  </div>
+                </div>
+                <br>
+              </div>
+            </div>
+              <br>
+              <div class="form-group">
+              <div class="col-md-12">
+                <div id="map" class="form" ></div>
+              </div>
+              <br>
+              </div>
+              <div class="row justify-content-center">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock body %}
+
+{% block js %}
+  {% if company_location_form %}
+    {{ company_location_form.media }}
+  {% endif %}
+{% endblock js %}

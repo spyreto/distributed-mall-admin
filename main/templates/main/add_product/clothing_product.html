@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container-fluid">
+  <div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-clipboard-check"></i>
+    Insert new product</div>
+  <div class="card-body">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <div class="form-row">
+          <legend class="col-md-12 col-form-label pt-0"><strong>Product details</strong></legend>
+          <div class="col-md-6">
+            <div class="form-label-group">
+              <input type="text" id="productname" class="form-control" name="name" >
+              <label for="productname">Product name</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productcategory" class="form-control"  disabled="disabled" value="{{ category.name }}" >
+              <label for="productcategory">Product category</label>
+            </div>
+          </div>
+        </div>
+        {% if product_form.non_field_errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>{{ product_form.non_field_errors }}</strong>
+          </div>
+        {% endif %}
+        {% if product_form.name.errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>{{ product_form.name.errors }}</strong>
+          </div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-6">
+            <div class="form-label-group">
+              <input type="text" id="manufacturerName" class="form-control" name="manufacturer-name" >
+              <label for="manufacturerName">Manufacturer</label>
+            </div>
+          </div>
+        </div>
+        {% if manufacturer_form.name.errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>{{ manufacturer_form.name.errors }}</strong>
+          </div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-12">
+            <label for="companyDescription">Product description</label>
+            <textarea class="form-control" id="companyDescription" rows="4"
+            placeholder="A brief description of the product ....."
+            name="description"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-8">
+            <label for="tags">Tags</label>
+            <div class="form-label-group">
+              <input type="text" id="tags" data-role="tagsinput" class="form-control" name="tags">
+              <small id="tags" class="form-text text-muted">Enter keywords that describe the product.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          {% include "includes/fields/color_field.html" with field=product_form.color.field %}
+          {% include "includes/fields/material_field.html" with field=product_form.material.field %}
+        </div>
+        {% if product_form.color.errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>{{ product_form.color.errors }}</strong>
+          </div>
+        {% endif %}
+        {% if product_form.material.errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>{{ product_form.material.errors }}</strong>
+          </div>
+        {% endif %}
+      </div>
+      {{ image_formset.management_form }}
+      <div id="images_formset">
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-4">
+            <button type="button" class="btn btn-outline-primary" id = "add-image"
+            data-toggle="button" aria-pressed="false" autocomplete="off">
+              Add image
+            </button>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-outline-danger" id = "delete-image"
+              data-toggle="button"  style="display:none;" aria-pressed="false" autocomplete="off">
+            Remove image
+            </button>
+          </div>
+        </div>
+        {% if image_formset.non_form_errors %}
+          <div class="alert alert-warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong><ul><li>Please submit at least 1 product image.</li></ul></strong>
+          </div>
+        {% endif %}
+      </div>
+      <hr class="mb-12">
+      <div class="row justify-content-center">
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </form>
+  </div>
+  </div>
+</div>
+{% endblock body %}

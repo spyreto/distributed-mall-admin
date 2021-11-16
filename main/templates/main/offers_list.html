@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+
+{% block body %}
+<div class="container-fluid">
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-bullhorn"></i>
+      Offers</div>
+    <div class="card-body">
+      <form method="get">
+          {% csrf_token %}
+        <div class="form-group">
+          <div class="form-row">
+            <legend class="col-md-12 col-form-label pt-0"><strong>Offer search</strong></legend>
+            <div class="col-md-6">
+              <div class="form-label-group">
+                <input type="text" id="productName" class="form-control form-control-sm"
+                  name="product__name__icontains" autofocus="autofocus">
+                <label for="productName">Name</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-label-group">
+                <input type="number" id="offerId" class="form-control form-control-sm"
+                  name="id" autofocus="autofocus">
+                <label for="offerId">Offer ID</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <select name = 'is_open' class="form-control">
+                <option>---Status</option>
+                <option  value="true">Open</option>
+                <option  value="false">Expired</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-5">
+              <label for="id_start_date__gte">Starting from</label>
+              {{ filter.form.start_date__gte }}
+            </div>
+            <div class="col-md-5">
+              <label for="id_start_date__lte">Start to</label>
+              {{ filter.form.start_date__lte }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-md-5">
+              <label for="id_end_date__gte">Expiration from</label>
+              {{ filter.form.end_date__gte }}
+            </div>
+            <div class="col-md-5">
+              <label for="id_end_date__lte">Expiration to</label>
+              {{ filter.form.end_date__lte }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row justify-content-start">
+            <button type="submit" class="btn btn-secondary">Search</button>
+          </div>
+        </div>
+        <br>
+      </form>
+
+      <div class="table-responsive">
+      <table class="table table-bordered" id="OffersTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Discount</th>
+            <th>Start</th>
+            <th>Expiry</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Discount</th>
+            <th>Start</th>
+            <th>Expiry</th>
+            <th></th>
+          </tr>
+        </tfoot>
+        <tbody>
+          {% for offers in filter.qs %}
+          <tr class = "clickable-row {% if offers.is_open is not True %} bg-warning{% endif %}"
+            data-href="{% url "offer_details" offers.id %}"">
+            <td>{{ offers.id }}</td>
+            <td>{{ offers.product.name }}</td>
+            <td>{{ offers.product.category}}</td>
+            <td>{{ offers.discount_rate}}%</td>
+            <td>{% if offers.start_date %}{{ offers.start_date  }}
+              {% else %} - {% endif %}</td>
+            <td>{% if offers.end_date %}{{ offers.end_date  }}
+              {% else %} - {% endif %}</td>
+            <td><img src="{{ offers.product.image.first.thumbnail.url }}"
+              alt="{{ offers.product.name }}" width="35" height="35"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+  {% if filter.form %}
+    {{ filter.form.media }}
+  {% endif %}
+{% endblock js %}

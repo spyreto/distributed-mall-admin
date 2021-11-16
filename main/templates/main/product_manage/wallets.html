@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="far fa-calendar-check"></i>
+    Product management
+  </div>
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %}
+      {% include "includes/product_image_carousel.html" %}
+      <br>
+      <div class="form-group">
+        <div class="form-row justify-content-between">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productid" class="form-control"  disabled="disabled" value="{{ product.id }}" >
+              <label for="productid">Product ID</label>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-label-group">
+              <input type="text" id="productname" class="form-control"  disabled="disabled" value="{{ product.name }}" >
+              <label for="productname">Product name</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productmanufacturer" class="form-control"  disabled="disabled" value="{{ product.manufacturer }}" >
+              <label for="productmanufacturer">Manufacturer</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productcategory" class="form-control"  disabled="disabled" value="{{ product.category }}" >
+              <label for="productcategory">Product category</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="producttype" class="form-control"  disabled="disabled" value="{{ product.get_type_display  }}" >
+              <label for="producttype">Type</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productmaterial" class="form-control"  disabled="disabled" value="{{ product.get_material_display  }}" >
+              <label for="productmaterial">Material</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcolor" class="form-control"  disabled="disabled" value="{{ product.get_color_display }}" >
+              <label for="productcolor">Color</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="typeofclosing" class="form-control"  disabled="disabled"
+                value="{{ product.wallet.get_type_of_closing_display }}" >
+              <label for="typeofclosing">Closing type</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-12">
+            <label for="companyDescription">Product description</label>
+            <textarea class="form-control" id="companyDescription" disabled="disabled"
+              rows="5" placeholder="A brief description of the product ....."
+            name="description">{{  product.description }}</textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+       <div class="form-row">
+         <div class="col-md-12">
+           <p>Tags:
+             {% for tag in product.product_ptr.tags.all %}
+               <span class="badge badge-pill badge-secondary">#{{ tag }}</span>
+             {% endfor %}
+           </p>
+         </div>
+       </div>
+      </div>
+      <div class="row justify-content-center">
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <a href="{% url "product_processing" product.id %}" class="btn btn-secondary">Μodification</a>
+      </div>
+      <hr class="mb-4">
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-3">
+            <div class="form-label-group ">
+              <input type="number" step="0.01" pattern="\d+([\.,]\d+?" id="price" class="form-control"
+              name="price" autofocus="autofocus" value="{{ sales_product_form.price.value }}"/>
+              <label for="price">Product price</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="number"  id="quantity" class="form-control" name="quantity"
+                 autofocus="autofocus"  value="{{ sales_product_form.quantity.value }}" >
+              <label for="quantity">Quantity</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-12">
+            {% if sales_product_form.non_field_errors %}
+              <div class="alert alert-warning">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>{{ sales_product_form.non_field_errors }}</strong>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <hr class="mb-12">
+      {% include "includes/product_discount.html" %}
+      <div class="form-group">
+        <div class="form-row justify-content-center">
+          <div class="col-md-3 text-center">
+            <button style="margin:10px;" type="submit" class="btn btn-success">Save</button>
+          </div>
+          {% if sales_product_form.instance.id %}
+          <div class="col-md-3 text-center">
+            <a style="margin:10px;" href="{% url "product_delete"  sales_product_form.instance.id %}" class="btn btn-danger">Remove</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+  {% if offer_form %}
+    {{ offer_form.media }}
+  {% endif %}
+{% endblock js %}

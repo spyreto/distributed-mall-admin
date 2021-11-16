@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-info"></i>
+    Sale details
+  </div>
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-row justify-content-center">
+        <div class="col-md-12">
+          <div id="carouselProductImage" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              {% for image in sale.product.image.all %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  <img class="centerImg" src="{{ image.image.url }}" alt="{{ sale.product.name }}" >
+                </div>
+              {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselProductImage" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselProductImage" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <div class="row justify-content-between">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="number" id="productid" class="form-control"  disabled="disabled" value="{{ sale.product.id }}" >
+              <label for="productid">Product ID</label>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-label-group">
+              <input type="text" id="productname" class="form-control"  disabled="disabled" value="{{ sale.product.name }}" >
+              <label for="productname">Product name</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-label-group">
+              <input type="text" id="productmanufacturer" class="form-control"  disabled="disabled" value="{{ sale.product.manufacturer }}" >
+              <label for="productmanufacturer">Manufacturer</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcategory" class="form-control"  disabled="disabled" value="{{ sale.product.category }}" >
+              <label for="productcategory">Product category</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="producttype" class="form-control"  disabled="disabled" value="{{ sale.product.bag.get_type_display  }}" >
+              <label for="producttype">Type</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productmaterial" class="form-control"  disabled="disabled" value="{{ sale.product.bag.get_material_display  }}" >
+              <label for="productmaterial">Material</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="productcolor" class="form-control"  disabled="disabled" value="{{ sale.product.bag.get_color_display }}" >
+              <label for="productcolor">Color</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mb-12">
+      <div class="form-group">
+        <div class="row justify-content-start">
+          <legend class="col-md-12 col-form-label pt-0"><strong>Sale details</strong></legend>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="saleid" class="form-control"  disabled="disabled" value="{{ sale.id }}" >
+              <label for="saleid">Sale ID</label>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-label-group">
+              <input type="text" id="customer" class="form-control"  disabled="disabled" value="{{ sale.customer }}" >
+              <label for="customer">Customer</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="selling_price" class="form-control"
+                disabled="disabled" value="{{ sale.selling_price}}" >
+              <label for="selling_price">Selling price</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="paid_with_money" class="form-control"  disabled="disabled"
+                value=" {% if paid_with_money %} Money {% else %} Points {% endif %}">
+              <label for="paid_with_money">Payment method</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="date_added" class="form-control"  disabled="disabled" value="{{ sale.date_added }}" >
+              <label for="date_added">Purchase date</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-label-group">
+              <input type="text" id="date_updated" class="form-control"  disabled="disabled" value="{{ sale.date_updated }}" >
+              <label for="date_updated">Last change</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include "includes/fields/sale_status_field.html" with field=form.status %}
+      {% if form.non_field_errors %}
+        <div class="alert alert-warning">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>{{ form.non_field_errors }}</strong>
+        </div>
+      {% endif %}
+      <hr class="mb-12">
+      <div class="row justify-content-center">
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-success">Save</button>
+        </div>
+      </div>
+    <form>
+  </div>
+</div>
+{% endblock body %}

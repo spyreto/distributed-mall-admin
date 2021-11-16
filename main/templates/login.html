@@ -1,0 +1,60 @@
+{% extends "base_log_reg.html" %}
+
+{% block title %}- Sign in{% endblock title %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="email" id="inputEmail" class="form-control"
+                name="email" placeholder="Email address" required="required" autofocus="autofocus"
+                value="{{ form.email.value|default:""}}">
+              <label for="inputEmail">Email</label>
+            </div>
+            {% if form.email.errors %}
+              <div class="alert alert-warning">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>{{ form.email.errors }}</strong>
+              </div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="password" id="inputPassword"
+                class="form-control"
+                name="password" placeholder="Password" required="required"
+                value="{{ form.password.value|default:"" }}">
+              <label for="inputPassword">Password</label>
+            </div>
+            {% if form.non_field_errors %}
+              <div class="alert alert-warning">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>{{ form.non_field_errors }}</strong>
+              </div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me">
+                Remember me
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="{% url 'signup' %}">Register</a>
+          <a class="d-block small" href="forgot-password.html">Did you forget your password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

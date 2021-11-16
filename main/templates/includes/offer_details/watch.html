@@ -1,0 +1,26 @@
+
+<div class="form-group">
+  <div class="form-row">
+    <div class="col-md-3">
+      <div class="form-label-group">
+        <input type="text" id="bandmaterial" class="form-control"  disabled="disabled"
+          value="{{ object.offer.product.watch.get_band_material_display   }}" >
+        <label for="bandmaterial">Strap material</label>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-label-group">
+        <input type="text" id="bandcolorr" class="form-control"  disabled="disabled"
+          value="{{ object.offer.product.watch.get_band_color_display  }}" >
+        <label for="bandcolor">Strap color</label>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-label-group">
+        <input type="text" id="facecolor" class="form-control"  disabled="disabled" 
+          value="{{ object.offer.product.watch.get_face_color_display  }}" >
+        <label for="facecolor">Dial color</label>
+      </div>
+    </div>
+  </div>
+</div>
