@@ -96,19 +96,17 @@ Main frameworks/libraries used to develop this project:
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">bacak to top</a>)</p>
 
 
 ### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
 1. Clone the repo
    ```sh
    git clone https://github.com/spyreto/distributed-mall-admin.git
    ```
    
-some changes are being made to the installation instructions. Will be added soon.
+	:warning: some changes are being made to the installation instructions. Will be added soon.
 
 <!--
 2. Install NPM packages
