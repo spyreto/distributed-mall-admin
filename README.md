@@ -27,33 +27,34 @@
 
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
+    <summary>Table of Contents</summary>
+    <ol>
+        <li>
+            <a href="#about-the-project">About Distributed Mall</a>
+        </li>
+        <li>
+            <a href="#distributed-mall-admin">Distributed Mall Admin</a>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#built-with">Built With</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#getting-started">Getting Started</a>
+            <ul>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="#installation">Installation</a></li>
+            </ul>
+        </li>
+        <li><a href="#contributing">Contributing</a></li>
+        <li><a href="#license">License</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ol>
 </details>
 
 
 <!-- ABOUT THE DISTRIBUTED MALL -->
-## About The Distributed Mall
+## About Distributed Mall
 
 Distributed Mall is an electronic platform, which will allow independent retailers to enter into trade "alliances" in order to achieve economies of scale and the provision of innovative digital services, so as to make them
 competitive with shopping malls and e-commerce platforms. Τhe platform consists of two subsystems:
@@ -63,9 +64,14 @@ competitive with shopping malls and e-commerce platforms. Τhe platform consists
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Distributed Mall Admin
+
+## Distributed Mall Admin
+
+
+### Overview
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
 
 ### Built With
 
@@ -81,9 +87,11 @@ Main frameworks/libraries used to develop this project:
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
 <!-- GETTING STARTED -->
-## Requirements
+
+## Getting Started
+
+### Requirements
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
