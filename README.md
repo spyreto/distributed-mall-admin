@@ -59,8 +59,8 @@
 Distributed Mall is an electronic platform, which will allow independent retailers to enter into trade "alliances" in order to achieve economies of scale and the provision of innovative digital services, so as to make them
 competitive with shopping malls and e-commerce platforms. Τhe platform consists of two subsystems:
 
-* <a href="https://github.com/spyreto/distributed-mall-admin">distributed-mall-admin</a> -> the content management system for retailers  
-* <a href="https://github.com/spyreto/distributed-mall-app">distributed-mall-app</a> -> the mobile application of the end users
+* <a href="https://github.com/spyreto/distributed-mall-admin">distributed-mall-admin</a> &rarr; the content management system for retailers  
+* <a href="https://github.com/spyreto/distributed-mall-app">distributed-mall-app</a> &rarr; the mobile application of the end users
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -103,20 +103,23 @@ To get a local copy up and running follow these simple example steps.
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/spyreto/distributed-mall-admin.git
    ```
-3. Install NPM packages
+   
+some changes are being made to the installation instructions. Will be added soon.
+
+<!--
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+3. Enter your API in `config.js`
    ```js
    const API_KEY = 'ENTER YOUR API';
    ```
-
+-->
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
