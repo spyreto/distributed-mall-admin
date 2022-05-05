@@ -106,7 +106,9 @@ To get a local copy up and running follow these simple example steps.
    git clone https://github.com/spyreto/distributed-mall-admin.git
    ```
    
-	:warning: some changes are being made to the installation instructions. Will be added soon.
+2.	.....
+
+:construction: Some changes are being made to the installation instructions. Will be added soon.
 
 <!--
 2. Install NPM packages
