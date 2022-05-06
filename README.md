@@ -163,9 +163,9 @@ The following commands have been created, which were considered necessary during
     py manage.py import_products_categories "path-to-csv-file"
     ```
     
-*   Import products categories:
+*   Import companies categories (etc clothes shop):
     ```sh
-     py manage.py import_products_categories"path-to-csv-file"
+     py manage.py import_companies_categories"path-to-csv-file"
     ```    
 
 *   Import products from the following categories &rarr; clothing_products | footwear_products | bags | wallets | watches :
