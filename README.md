@@ -46,6 +46,7 @@
                 <li><a href="#installation">Installation</a></li>
             </ul>
         </li>
+        <li><a href="#built-in-commands">Built-in Commands</a></li>
         <li><a href="#contributing">Contributing</a></li>
         <li><a href="#license">License</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -56,8 +57,7 @@
 <!-- ABOUT THE DISTRIBUTED MALL -->
 ## About Distributed Mall
 
-Distributed Mall is an electronic platform, which will allow independent retailers to enter into trade "alliances" in order to achieve economies of scale and the provision of innovative digital services, so as to make them
-competitive with shopping malls and e-commerce platforms. Τhe platform consists of two subsystems:
+Distributed Mall is a multi vendor eCommerce platform, which will allow independent retailers to enter into trade "alliances" in order to achieve economies of scale and the provision of innovative digital services, so as to make them competitive with shopping malls and e-commerce stores. Τhe platform consists of two subsystems:
 
 * <a href="https://github.com/spyreto/distributed-mall-admin">distributed-mall-admin</a> &rarr; the content management system for retailers  
 * <a href="https://github.com/spyreto/distributed-mall-app">distributed-mall-app</a> &rarr; the mobile application of the end users
@@ -93,35 +93,98 @@ Main frameworks/libraries used to develop this project:
 
 ### Requirements
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+*  [Python 3.5](https://www.python.org/downloads/) or greater
+*  [PostgreSQL](https://www.postgresql.org/download/)
+*  [Pip](https://pypi.org/project/pip/)
+*  [Node.js](https://nodejs.org/en/)
+*  [Gulp](https://gulpjs.com/docs/en/getting-started/quick-start)
 
 <p align="right">(<a href="#top">bacak to top</a>)</p>
 
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repo:
    ```sh
    git clone https://github.com/spyreto/distributed-mall-admin.git
    ```
    
-2.	.....
+2.	Enter inside the project:
+    ```sh
+    cd distributed-mall-admin
+    ```
 
-:construction: Some changes are being made to the installation instructions. Will be added soon.
+3.	Create `.env` file and add the following lines:
+    ```sh
+    DEBUG=True
+    DATABASE_URL='postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]db?'
+    # Example: DATABASE_URL=postgres://spyreto:1234@localhost:5432/distributed_mall_db?
+    SECRET_KEY= 'youSecretKey'
+    GOOGLE_MAPS_API_KEY='youGoogleMapsApiKey'
+    ```
 
-<!--
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
--->
+4.	Setup `psql` database.
+
+5.  Create a python virtual environment within the project directory and activate it.
+
+6.  Install the required `python packages`:
+    ```sh
+    pip install -r requirements.txt
+    ```
+7.  Install the required `node packages`:
+    ```sh
+    npm i
+    ```    
+
+8. Create `static files` using GulpL: 
+    ```sh
+    gulp build
+    ```   
+9.  It's time to migrate the initial database schema to the project's psql database using the management script:
+    ```sh
+    py manage.py makemigrations
+    py  manage.py migrate
+    ```  
+10. Create the `admin user` for the project:
+
+11. Finally, you can run the Distributed Mall vendor interface by typing:
+    ```sh
+    py manage.py runserver 0.0.0.0:8000
+    ``` 
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Built-in Commands
+
+The following commands have been created, which were considered necessary during the development of the platform.
+
+*   Import products categories:
+    ```sh
+    py manage.py import_products_categories "path-to-csv-file"
+    ```
+    
+*   Import products categories:
+    ```sh
+     py manage.py import_products_categories"path-to-csv-file"
+    ```    
+
+*   Import products from the following categories &rarr; clothing_products | footwear_products | bags | wallets | watches :
+    ```sh
+    py manage.py import_["product-category"]_categories "path-to-csv-file"
+    # Example: py manage.py import_products_categories samples/products-categories.csv
+    ``` 
+    
+*   Close inactive offers or activates valid offers
+    ```sh
+    py manage.py update_offers
+    ``` 
+
+*   Remove_inactive_manufacturers and shop a list of them  `-l flag`
+    ```sh
+    py manage.py remove_inactive_manufacturers -l
+    ```
+    
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- CONTRIBUTING -->
@@ -129,7 +192,7 @@ To get a local copy up and running follow these simple example steps.
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this better, please fork the repo and create a pull request.
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
@@ -139,7 +202,6 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- LICENSE -->
@@ -158,7 +220,6 @@ Dimos - Spiridon Dimou - [Linkedin](https://www.linkedin.com/in/spiridon-dimou-2
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
