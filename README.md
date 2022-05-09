@@ -143,7 +143,7 @@ Main frameworks/libraries used to develop this project:
 9.  It's time to migrate the initial database schema to the project's psql database using the management script:
     ```sh
     py manage.py makemigrations
-    py  manage.py migrate
+    py manage.py migrate
     ```  
 10. Create the `admin user` for the project:
 
@@ -217,7 +217,7 @@ Distributed under the Apache License 2.0. See `LICENSE.txt` for more information
 
 Dimos - Spiridon Dimou - [Linkedin](https://www.linkedin.com/in/spiridon-dimou-2aa98216b) - spirosdimou2@hotmail.gr
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [Distributed Mall Admin](https://github.com/spyreto/distributed-mall-admin)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
