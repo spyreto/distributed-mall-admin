@@ -66,6 +66,9 @@ Distributed Mall is a multi vendor eCommerce platform, which will allow independ
 
 
 ## Distributed Mall Admin
+
+### Overview
+
 Distributed Mall Admin is the interface of the sellers through which they can perform the following operations:
 
 * Creating a seller account.
@@ -75,9 +78,6 @@ Distributed Mall Admin is the interface of the sellers through which they can pe
 * Product modification in the electronic repository.
 * Τhe display of sales.
 * Τhe display of statistics and graphs.
-
-
-### Overview
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
