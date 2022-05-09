@@ -3,12 +3,13 @@
 
 # venv — virtual environment
 /venv
+Pipfile
 
 #Environment variables
 .env
 
 #Local data
-main/migrations/*
-media/product-images/*
-media/product-thumbnails/*
+/main/migrations/*
+/media/product-images/*
+/media/product-thumbnails/*
 
