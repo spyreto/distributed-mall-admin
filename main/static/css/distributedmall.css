@@ -1,6 +1,6 @@
 /*!
- * Distributed Mall Admin v1.0.0 (https://startbootstrap.com/template-overviews/sb-admin)
- * Copyright 2019-2021 Dimos - Spiridon Dimou
+ * Distributed Mall Admin v1.1.0 (https://github.com/spyreto/distributed-mall-admin)
+ * Copyright 2019-2022 Dimos - Spiridon Dimou
  * Licensed under MIT (https://github.com/BlackrockDigital/distributed-mall-admin/blob/master/LICENSE)
  */
 

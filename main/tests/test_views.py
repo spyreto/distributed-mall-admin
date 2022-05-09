@@ -6,7 +6,7 @@ from django.contrib import auth
 
 from main import forms, models
 
-# Πραγματοποίηση δοκιμών των views.
+# Perform tests of views.
 class TestPage(TestCase):
     def test_home_page_works(self):
         response = self.client.get(reverse("home"))
@@ -26,24 +26,24 @@ class TestPage(TestCase):
 
     def test_products_page_returns_active(self):
         models.ProductCategory.objects.create(
-            name="Διάφορα",
+            name="Various",
         )
 
         models.ProductCategory.objects.create(
-            name="Μόδα",
+            name="Fashion",
         )
 
         models.Product.objects.create(
             name="The cathedral and the bazaar",
             slug="cathedral-bazaar",
             price=Decimal("10.00"),
-            product_category = models.ProductCategory.objects.get(name = "Διάφορα")
+            product_category = models.ProductCategory.objects.get(name = "Various")
         )
         models.Product.objects.create(
             name="A Tale of Two Cities",
             slug="tale-two-cities",
             price=Decimal("2.00"),
-            product_category = models.ProductCategory.objects.get(name = "Μόδα"),
+            product_category = models.ProductCategory.objects.get(name = "Fashion"),
             active=False,
         )
         response = self.client.get(
@@ -62,13 +62,13 @@ class TestPage(TestCase):
 
     def test_products_page_filters_by_tags_and_active(self):
         models.ProductCategory.objects.create(
-            name = "Μόδα"
+            name = "Fashion"
         )
 
         cb = models.Product.objects.create(
             name="The cathedral and the bazaar",
             slug="cathedral-bazaar",
-            product_category = models.ProductCategory.objects.get(name = "Μόδα"),
+            product_category = models.ProductCategory.objects.get(name = "Fashion"),
             price=Decimal("10.00"),
         )
         cb.tags.create(name="Open source", slug="opensource")
@@ -76,7 +76,7 @@ class TestPage(TestCase):
         models.Product.objects.create(
             name="Microsoft Windows guide",
             slug="microsoft-windows-guide",
-            product_category = models.ProductCategory.objects.get(name = "Μόδα"),
+            product_category = models.ProductCategory.objects.get(name = "Fashion"),
             price=Decimal("12.00"),
         )
         response = self.client.get(

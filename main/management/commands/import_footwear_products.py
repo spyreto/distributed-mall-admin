@@ -21,8 +21,8 @@ class Command(BaseCommand):
         self.stdout.write("Importing footwear products")
 
         for row in reader:
-            #Χειρισμός εξαίρεσης σε περίπτωση που η κατηγορία προϊόντος που αναγράφεται στο csvfile
-            #does not exist
+            # Exception handling in case the product category listed in csvfile
+            # does not exist
             try:
                 manufacturer, created = models.Manufacturer.objects.get_or_create(name = row["manufacturer"])
 

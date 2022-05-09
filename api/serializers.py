@@ -55,7 +55,7 @@ class ManufacturerSerializer(serializers.ModelSerializer):
         model = apps.get_model('main','Manufacturer')
         fields = ['name', 'id']
 
-# Serializer κατηγορίας προϊόντος για την εμφάνισει του τύπου κατηγορίας(π.χ. Ένδυση)
+# Product category serializer to display the category type (eg Clothing)
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = apps.get_model('main','ProductCategory')
@@ -130,13 +130,13 @@ class WatchSerializer(serializers.ModelSerializer):
             'product_ptr','manufacturer']
 
 
-# # Serializer για το φιλτράρισμα των προσφορών ώστε να εμφανίζονται μόνο οι ενεργές.
+# Serializer to filter bids so that only active ones are displayed.
 class FilteredOffersSerializer(serializers.ListSerializer):
     def to_representation(self, data):
         data = data.filter(is_open=True)
         return super(FilteredOffersSerializer, self).to_representation(data)
 
-# Serializer προσφορών.
+# Offers Serializer.
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         list_serializer_class = FilteredOffersSerializer
@@ -242,7 +242,7 @@ class FavoritesSerializer(serializers.ModelSerializer):
             'thumbnail': image.thumbnail.url
         }
 
-# Serializer χρήστη.
+# User Serializer.
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = apps.get_model('main','User')
@@ -275,18 +275,18 @@ class RegistrationSerializer(serializers.ModelSerializer):
         Customer = apps.get_model('main','Customer')
 
         if apps.get_model('main','User').objects.filter(email=email).exists():
-            error = {'email': u'Το email %s χρησιμοποιείται ήδη.' % email}
+            error = {'email': u'Email %s is already in use.' % email}
             raise serializers.ValidationError(error)
 
         if apps.get_model('main','Customer').objects.filter(phone_number=customer_data['phone_number']).exists():
-            error = {'error': u'Το τηλέφωνο %s χρησιμοποιείται ήδη.' % customer_data['phone_number']}
+            error = {'error': u'Phone %s is already in use.' % customer_data['phone_number']}
             raise serializers.ValidationError(error)
 
         if len( password )<8:
-            error = {"error": "O νέος κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες."}
+            error = {"error": "The new password must contain at least 8 characters."}
             raise serializers.ValidationError(error)
         elif not re.search("[A-Za-z]", password):
-            error = {"error": "O νέος κωδικός αποτελείται μόνο απο αριθμούς"}
+            error = {"error": "The new code consists of numbers only"}
             raise serializers.ValidationError(error)
 
         user = User.objects.create(is_customer = True, password = password, **validated_data)
@@ -295,7 +295,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return user
 
 
-# Serializer ενημέρωσεις στοιχείων χρήστη.
+# User information update serializer.
 class UserUpdateSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer()
 
@@ -305,8 +305,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'email':
                 {"error_messages":
-                    {"blank": "Το email είναι υποχρεωτικό.",
-                    "required": "Το email είναι υποχρεωτικό.",
+                    {"blank": "Email is required.",
+                    "required": "Email is required.",
             }},
         }
 
@@ -322,7 +322,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         instance.customer.birth_date = customer_data['birth_date']
         if (instance.customer.phone_number != customer_data['phone_number']):
             if apps.get_model('main','Customer').objects.exclude(pk = instance.pk).filter(phone_number=customer_data['phone_number']).exists():
-                error = {'phone_number': u'Το τηλέφωνο %s χρησιμοποιείται ήδη.' % customer_data['phone_number']}
+                error = {'phone_number': u'Phone %s is already in use.' % customer_data['phone_number']}
                 raise serializers.ValidationError(error)
 
             instance.customer.phone_number = customer_data['phone_number']

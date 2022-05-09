@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core import mail
 from main import forms
 
-# Υλοποίηση tests φορμών
+# Implementation of form tests
 class TestForm(TestCase):
     def test_valid_contact_us_form_sends_email(self):
         form = forms.ContactForm({
@@ -33,6 +33,6 @@ class TestForm(TestCase):
             form.send_mail()
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(
-            mail.outbox[0].subject, "Καλώς ορίσαται στην εφαρμογή Distributed Mall"
+            mail.outbox[0].subject, "Welcome to the Distributed Mall application"
         )
         self.assertGreaterEqual(len(cm.output), 1)

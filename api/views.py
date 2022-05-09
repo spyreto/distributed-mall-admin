@@ -33,17 +33,17 @@ class AuthToken(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
 
-        #Εξαγωγή ιστορικού αγορών χρήστη
+        # Export user shopping history
         Sales = apps.get_model('main','Sale')
         sales_qs = Sales.objects.filter(customer = user.pk)
         history_serializer = serializers.HistorySerializer(sales_qs, many = True)
 
-        #Εξαγωγή αγαπημένων προϊόντων χρήστη
+        # Export user's favorite products
         Favorite = apps.get_model('main','Favorite')
         favorites_qs = Favorite.objects.filter(customer = user.pk)
         favorites_serializer = serializers.FavoritesSerializer(favorites_qs, many = True)
 
-        #Εξαγωγή πληροφοριών χρήστη
+        # Export user info
         Customers = apps.get_model('main','Customer')
         customer_qs = Customers.objects.filter(user_id = user.pk)
         customer_serializer = serializers.CustomerSerializer(customer_qs, many = True)
@@ -62,17 +62,17 @@ class GetUserInfo(APIView):
     def get(self, request, *args, **kwargs):
         user = request.user
 
-        #Εξαγωγή ιστορικού αγορών χρήστη
+        # Export user shopping history
         Sales = apps.get_model('main','Sale')
         sales_qs = Sales.objects.filter(customer = user.pk)
         history_serializer = serializers.HistorySerializer(sales_qs, many = True)
 
-        #Εξαγωγή αγαπημένων προϊόντων χρήστη
+        # Export user's favorite products
         Favorite = apps.get_model('main','Favorite')
         favorites_qs = Favorite.objects.filter(customer = user.pk)
         favorites_serializer = serializers.FavoritesSerializer(favorites_qs, many = True)
 
-        #Εξαγωγή πληροφοριών χρήστη
+        # Export user info
         Customers = apps.get_model('main','Customer')
         customer_qs = Customers.objects.filter(user_id = user.pk)
         customer_serializer = serializers.CustomerSerializer(customer_qs, many = True)
@@ -98,7 +98,7 @@ class RegistrationView(APIView):
             customer_serializer = serializers.CustomerSerializer(customer_qs, many = True)
             token, created = Token.objects.get_or_create(user=user)
 
-            data['response'] = 'Η εγγραφή σας ολοκληρώθηκε επιτυχώς!'
+            data['response'] = 'Your registration has been completed successfully!'
             data['token'] = token.key
             data['user_info'] = customer_serializer.data
             return Response(data)
@@ -127,20 +127,20 @@ class ChangePasswordView(UpdateAPIView):
 
                 # Check old password
                 if not self.object.check_password(old_password):
-                    return Response({"message": "Λάθος προηγούμενος κωδικός!"}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({"message": "Wrong previous password!"}, status=status.HTTP_400_BAD_REQUEST)
                 # set_password also hashes the password that the user will get
 
                 if len(new_password)<8:
-                    return Response({"message": "O νέος κωδικός πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες."}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({"message": "The new password must contain at least 8 characters."}, status=status.HTTP_400_BAD_REQUEST)
                 if not re.search("[A-Za-z]", new_password):
-                    return Response({"message": "O νέος κωδικός αποτελείται μόνο απο αριθμούς"}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({"message": "The new password consists of numbers only"}, status=status.HTTP_400_BAD_REQUEST)
 
                 self.object.set_password(new_password)
                 self.object.save()
                 response = {
                     'status': 'success',
                     'code': status.HTTP_200_OK,
-                    'message': 'Ο κωδικός άλλαξε επιτυχώς!',
+                    'message': 'Password changed successfully!',
                     'data': []
                 }
                 return Response(response)
@@ -285,20 +285,20 @@ def product_reservation(request, product_id,filters, *args, **kwargs):
         else:
             selling_price = sale.price
 
-        #Έλεγχος διατιθέμενης ποσότητας
+        # Check quantity available
         if (sale.quantity < quantity):
-            return Response({"message":'Δεν υπάρχει επαρκής ποσότητα για το προϊόν που επιλέξατε...'}, status.HTTP_400_BAD_REQUEST)
+            return Response({"message":'There is not enough quantity for the product you have chosen ...'}, status.HTTP_400_BAD_REQUEST)
 
-        #Έλεγχος σε περίπτωση πληρωμής με πόντους, για το αν οι πόντοι του χρήστη επαρκούν
+        # Check in case of payment with points, for whether the user's points are sufficient
         if paid_with_money:
             serializer.save(customer=request.user.customer, product = product, selling_price=selling_price)
         else:
             if request.user.customer.orange_points < 200*selling_price*quantity:
-                return Response({"message":'Οι orange points σου δεν επαρκούν για την αγορά!'},
+                return Response({"message":'Your orange points are not enough for the purchase!'},
                  status=status.HTTP_400_BAD_REQUEST)
             else:
                 serializer.save(customer=request.user.customer, product = product, selling_price=selling_price)
 
         return Response(status.HTTP_201_CREATED)
     else:
-        return Response({"message":'Προέκυψε κάποιο σφάλμα, παρακαλώ προσπαθήστε ξανά...'}, status.HTTP_400_BAD_REQUEST)
+        return Response({"message":'An error occurred, please try again ...'}, status.HTTP_400_BAD_REQUEST)

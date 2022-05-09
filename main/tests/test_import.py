@@ -9,7 +9,7 @@ from main import models
 class TestImport(TestCase):
     @classmethod
     def setUpTestData(cls):
-        #Δημιουργεία δεδομένων Category για το σύνολο των TestCases
+        # Create Category data for all Test Cases
         cls.testCat = models.ProductCategory.objects.create(
             name="TestCat")
         cls.testCat2 = models.ProductCategory.objects.create(

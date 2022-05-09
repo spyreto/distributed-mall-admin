@@ -6,14 +6,14 @@ from decimal import Decimal
 class TestSignal(TestCase):
     def test_thumbnails_are_generated_on_save(self):
         product_category = models.ProductCategory(
-            name = "Διάφορα"
+            name = "Various"
         )
         product_category.save()
 
         product = models.Product(
             name="The cathedral and the bazaar",
             price=Decimal("10.00"),
-            product_category= models.ProductCategory.objects.get(name = "Διάφορα")
+            product_category= models.ProductCategory.objects.get(name = "Various")
         )
         product.save()
 

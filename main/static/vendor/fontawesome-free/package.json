@@ -1,10 +1,4 @@
 {
-  "_args": [
-    [
-      "@fortawesome/fontawesome-free@5.15.4",
-      "C:\\Users\\spiro\\Desktop\\distributedMall\\admin"
-    ]
-  ],
   "_from": "@fortawesome/fontawesome-free@5.15.4",
   "_id": "@fortawesome/fontawesome-free@5.15.4",
   "_inBundle": false,
@@ -26,8 +20,9 @@
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.4.tgz",
-  "_spec": "5.15.4",
-  "_where": "C:\\Users\\spiro\\Desktop\\distributedMall\\admin",
+  "_shasum": "ecda5712b61ac852c760d8b3c79c96adca5554e5",
+  "_spec": "@fortawesome/fontawesome-free@5.15.4",
+  "_where": "C:\\Users\\spiro\\Desktop\\DistributedMall\\distributed-mall-admin",
   "author": {
     "name": "Dave Gandy",
     "email": "dave@fontawesome.com",
@@ -36,6 +31,7 @@
   "bugs": {
     "url": "http://github.com/FortAwesome/Font-Awesome/issues"
   },
+  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Brian Talbot",
@@ -59,6 +55,7 @@
     }
   ],
   "dependencies": {},
+  "deprecated": false,
   "description": "The iconic font, CSS, and SVG framework",
   "engines": {
     "node": ">=6"

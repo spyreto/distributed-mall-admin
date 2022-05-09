@@ -19,4 +19,4 @@ class SaleCreationForm(ModelForm):
         if not paid_with_money:
             user = models.Product.objects.get(id = customer)
             if user.orange_points < selling_price*200
-                raise forms.ValidationError("Δεν επαρκούν οι πόντοι σας")
+                raise forms.ValidationError("Your points are not enough")

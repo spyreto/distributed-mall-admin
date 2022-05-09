@@ -1,21 +1,21 @@
 {
     "title": "Distributed Mall Admin",
     "name": "distributed-mall-admin",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Content management app for retailers",
     "keywords": [
         "distributed mall"
     ],
-    "homepage": "https://startbootstrap.com/template-overviews/sb-admin",
+    "homepage": "https://github.com/spyreto/distributed-mall-admin",
     "bugs": {
-        "url": "https://github.com/BlackrockDigital/startbootstrap-sb-admin/issues",
-        "email": "feedback@startbootstrap.com"
+        "url": "https://github.com/spyreto/distributed-mall-admin/issues",
+        "email": "spirosdimou22@gmail.com"
     },
     "license": "MIT",
     "author": "Dimos - Spiridon Dimou",
     "repository": {
         "type": "git",
-        "url": "https://github.com/BlackrockDigital/startbootstrap-sb-admin.git"
+        "url": "https://github.com/spyreto/distributed-mall-admin"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "5.15.4",

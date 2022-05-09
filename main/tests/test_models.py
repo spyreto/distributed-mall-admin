@@ -6,30 +6,30 @@ class TestModel(TestCase):
     def test_active_manager_works(self):
 
         models.ProductCategory.objects.create(
-            name="Υγεία - Ομορφία"
+            name="Health - Beauty"
             )
 
         models.ProductCategory.objects.create(
-            name="Περιποιήση προσώπου",
-            parent=models.ProductCategory.objects.get(name = "Υγεία - Ομορφία")
+            name="Face care",
+            parent=models.ProductCategory.objects.get(name = "Health - Beauty")
             )
 
         models.Product.objects.create(
-            name="Κρέμα προσώπου",
+            name="Face cream",
             price=Decimal("10.00"),
-            product_category=models.ProductCategory.objects.get(name = "Περιποιήση προσώπου")
+            product_category=models.ProductCategory.objects.get(name = "Face care")
             )
 
         models.Product.objects.create(
-            name="Κάλτσες μάυρες",
+            name="Black socks",
             price=Decimal("2.00"),
-            product_category=models.ProductCategory.objects.get(name = "Περιποιήση προσώπου")
+            product_category=models.ProductCategory.objects.get(name = "Face care")
             )
 
         models.Product.objects.create(
-            name="Τα μυστικά του βάλτου",
+            name="The secrets of the swamp",
             price=Decimal("2.00"),
-            product_category=models.ProductCategory.objects.get(name = "Περιποιήση προσώπου"),
+            product_category=models.ProductCategory.objects.get(name = "Face care"),
             active=False)
 
         self.assertEqual(len(models.Product.objects.active()), 2)
