@@ -9,6 +9,7 @@ Pipfile
 .env
 
 #Local data
+/samples
 /main/migrations/*
 /media/product-images/*
 /media/product-thumbnails/*
