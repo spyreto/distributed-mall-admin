@@ -26,7 +26,7 @@ GOOGLE_MAPS_API_KEY = env.str('GOOGLE_MAPS_API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.str('ALLOWED_HOSTS').split()
 
 # Application definition
 

@@ -12,7 +12,7 @@
     <img src="logo.png" alt="Logo" width="250" height="200">
   </a>
 
-  <h3 align="center">Distributed Mall</h3>
+  <h3 align="center">Distributed Mall Admin</h3>
 
   <p align="center">
     Retail Stores Commercial Alliance!
@@ -59,13 +59,22 @@
 
 Distributed Mall is a multi vendor eCommerce platform, which will allow independent retailers to enter into trade "alliances" in order to achieve economies of scale and the provision of innovative digital services, so as to make them competitive with shopping malls and e-commerce stores. Τhe platform consists of two subsystems:
 
-* <a href="https://github.com/spyreto/distributed-mall-admin">distributed-mall-admin</a> &rarr; the content management system for retailers  
-* <a href="https://github.com/spyreto/distributed-mall-app">distributed-mall-app</a> &rarr; the mobile application of the end users
+* <a href="https://github.com/spyreto/distributed-mall-admin">distributed-mall-admin</a> &rarr; content management system for retailers  
+* <a href="https://github.com/spyreto/distributed-mall-app">distributed-mall-app</a> &rarr; location based mobile application of the end users
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ## Distributed Mall Admin
+
+<!-- SCREENSHOTS -->
+<div align="center">
+  <img src="screenshots/product_management.png" alt="App Screenshot Search" width="300" height="300" style="margin: 25px;">
+  &nbsp;
+  <img src="screenshots/sales.png" alt="App Screenshot Product Info" width="300" height="300" style="margin: 25px;">
+  &nbsp;
+  <img src="screenshots/stock_management.png" alt="App Screenshot Results.png" width="300" height="300" style="margin: 25px;">
+</div>
 
 ### Overview
 
@@ -128,6 +137,8 @@ Main frameworks/libraries used to develop this project:
     DEBUG=True
     DATABASE_URL='postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]db?'
     # Example: DATABASE_URL=postgres://spyreto:1234@localhost:5432/distributed_mall_db?
+    ALLOWED_HOSTS="localhost 192.168.2.10"
+    # Example: ALLOWED_HOSTS="localhost 192.168.2.10"
     SECRET_KEY= 'youSecretKey'
     GOOGLE_MAPS_API_KEY='youGoogleMapsApiKey'
     ```
@@ -145,7 +156,7 @@ Main frameworks/libraries used to develop this project:
     npm i
     ```    
 
-8. Create `static files` using GulpL: 
+8. Create `static files` using Gulp: 
     ```sh
     gulp build
     ```   
