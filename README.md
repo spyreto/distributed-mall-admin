@@ -179,7 +179,7 @@ The following commands have been created, which were considered necessary during
      py manage.py import_companies_categories"path-to-csv-file"
     ```    
 
-*   Import products from the following categories &rarr; clothing_products | footwear_products | bags | wallets | watches :
+*   Import products from the following categories &rarr; clothing_products | footwear_products | bags | wallets | watches
     ```sh
     py manage.py import_["product-category"]_categories "path-to-csv-file"
     # Example: py manage.py import_products_categories samples/products-categories.csv
