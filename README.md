@@ -67,15 +67,6 @@ Distributed Mall is a multi vendor eCommerce platform, which will allow independ
 
 ## Distributed Mall Admin
 
-<!-- SCREENSHOTS -->
-<div align="center">
-  <img src="screenshots/product_management.png" alt="App Screenshot Search" width="300" height="300" style="margin: 25px;">
-  &nbsp;
-  <img src="screenshots/sales.png" alt="App Screenshot Product Info" width="300" height="300" style="margin: 25px;">
-  &nbsp;
-  <img src="screenshots/stock_management.png" alt="App Screenshot Results.png" width="300" height="300" style="margin: 25px;">
-</div>
-
 ### Overview
 
 Distributed Mall Admin is the interface of the sellers through which they can perform the following operations:
