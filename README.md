@@ -108,7 +108,7 @@ Main frameworks/libraries used to develop this project:
 *  [Node.js](https://nodejs.org/en/)
 *  [Gulp](https://gulpjs.com/docs/en/getting-started/quick-start)
 
-<p align="right">(<a href="#top">bacak to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ### Installation
